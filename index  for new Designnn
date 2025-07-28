@@ -1,1 +1,1028 @@
-New // Design 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gyan By Meera - Premier Tuition Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#8b5cf6',
+                        dark: '#0f172a',
+                        light: '#f8fafc'
+                    },
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                        montserrat: ['Montserrat', 'sans-serif']
+                    },
+                    animation: {
+                        'gradient': 'gradient 8s ease infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                    },
+                    keyframes: {
+                        gradient: {
+                            '0%, 100%': { 'background-position': '0% 50%' },
+                            '50%': { 'background-position': '100% 50%' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --dark: #0f172a;
+            --light: #f8fafc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark);
+            color: #e2e8f0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        .glassmorphism {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
+            background-size: 400% 400%;
+            animation: gradient 12s ease infinite;
+        }
+        
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(90deg, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .syllabus-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .syllabus-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid var(--primary);
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary) }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        .tilt-hover {
+            transition: transform 0.3s ease;
+        }
+        
+        .tilt-hover:hover {
+            transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
+        }
+        
+        .morph-button {
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .morph-button:hover {
+            border-radius: 25px;
+        }
+        
+        .animated-border {
+            position: relative;
+        }
+        
+        .animated-border::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #818cf8, #c084fc);
+            transition: width 0.5s ease;
+        }
+        
+        .animated-border:hover::after {
+            width: 100%;
+        }
+        
+        .glitch {
+            position: relative;
+        }
+        
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff00c1;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+        
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00fff9;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-anim {
+            0% { clip: rect(70px, 450px, 76px, 0); }
+            20% { clip: rect(29px, 450px, 16px, 0); }
+            40% { clip: rect(76px, 450px, 3px, 0); }
+            60% { clip: rect(42px, 450px, 78px, 0); }
+            80% { clip: rect(15px, 450px, 13px, 0); }
+            100% { clip: rect(53px, 450px, 5px, 0); }
+        }
+        
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 450px, 53px, 0); }
+            20% { clip: rect(52px, 450px, 74px, 0); }
+            40% { clip: rect(33px, 450px, 60px, 0); }
+            60% { clip: rect(55px, 450px, 34px, 0); }
+            80% { clip: rect(85px, 450px, 73px, 0); }
+            100% { clip: rect(58px, 450px, 26px, 0); }
+        }
+        
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            mix-blend-mode: difference;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: transform 0.2s, width 0.3s, height 0.3s;
+        }
+        
+        .cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--primary);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9998;
+            transition: transform 0.4s, width 0.3s, height 0.3s;
+            opacity: 0.3;
+        }
+        
+        @media (max-width: 768px) {
+            .custom-cursor, .cursor-follower {
+                display: none;
+            }
+        }
+        
+        .chat-message {
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 0.3s forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(129, 140, 248, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(129, 140, 248, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(129, 140, 248, 0); }
+        }
+    </style>
+</head>
+<body class="dark relative">
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="cursor-follower"></div>
+    
+    <!-- Dark Mode Toggle -->
+    <button id="darkModeToggle" class="fixed top-6 right-6 z-50 p-3 rounded-full glassmorphism shadow-lg hover:shadow-xl transition-all duration-300">
+        <i class="fas fa-sun text-yellow-400"></i>
+    </button>
+    
+    <!-- Navigation -->
+    <nav class="glassmorphism fixed w-full z-40 backdrop-blur-lg py-4 px-6 shadow-sm">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                    <i class="fas fa-book text-white"></i>
+                </div>
+                <span class="text-2xl font-bold text-indigo-400 font-montserrat">Gyan By Meera</span>
+            </a>
+            
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="animated-border text-indigo-300 font-medium pb-1">Home</a>
+                <a href="#about" class="animated-border text-indigo-300 font-medium pb-1">About</a>
+                <a href="#syllabus" class="animated-border text-indigo-300 font-medium pb-1">Syllabus</a>
+                <a href="#classes" class="animated-border text-indigo-300 font-medium pb-1">Classes</a>
+                <a href="#contact" class="animated-border text-indigo-300 font-medium pb-1">Contact</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <button id="botToggle" class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-4 py-2 rounded-full hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 shadow-lg morph-button pulse">
+                    <i class="fas fa-robot mr-2"></i> Gyan Bot
+                </button>
+                
+                <button id="mobileMenu" class="md:hidden text-indigo-300">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileNav" class="hidden md:hidden bg-slate-800 mt-4 rounded-lg shadow-lg py-4 absolute left-0 right-0 mx-4">
+            <div class="flex flex-col space-y-4 px-6">
+                <a href="#home" class="text-indigo-300 font-medium">Home</a>
+                <a href="#about" class="text-indigo-300 font-medium">About</a>
+                <a href="#syllabus" class="text-indigo-300 font-medium">Syllabus</a>
+                <a href="#classes" class="text-indigo-300 font-medium">Classes</a>
+                <a href="#contact" class="text-indigo-300 font-medium">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center relative overflow-hidden pt-16 hero-bg">
+        <div class="particles-js" id="particles-js"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 py-16 flex flex-col md:flex-row items-center justify-between relative z-10">
+            <div class="md:w-1/2 mb-12 md:mb-0">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 text-white">
+                    <span class="glitch text-gradient" data-text="Unlock Your Potential">Unlock Your Potential</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-slate-300 mb-8">
+                    Premier coaching for CBSE, ICSE, Kerala Syllabus & ISC
+                </p>
+                <p class="text-lg text-slate-200 mb-10 max-w-2xl">
+                    Transform your academic journey with personalized guidance, expert faculty, and a proven track record of excellence.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#syllabus" class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-8 py-4 rounded-full hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl morph-button">
+                        Explore Syllabuses
+                    </a>
+                    <a href="#contact" class="bg-slate-800 text-indigo-300 px-8 py-4 rounded-full border border-slate-700 hover:bg-slate-700 transition-all duration-300 morph-button">
+                        Book a Demo
+                    </a>
+                </div>
+            </div>
+            
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative">
+                    <div class="absolute -top-10 -left-10 w-64 h-64 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse-slow"></div>
+                    <div class="absolute -bottom-10 -right-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse-slow animation-delay-2000"></div>
+                    <div class="relative rounded-2xl overflow-hidden glassmorphism border-2 border-white/10 shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1470&auto=format&fit=crop" alt="Students learning" class="w-full h-auto object-cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gradient-to-br from-slate-900 to-indigo-900/10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white">
+                    Why <span class="text-gradient">Gyan By Meera?</span>
+                </h2>
+                <p class="text-xl text-slate-300 max-w-3xl mx-auto">
+                    Excellence in education since 2010, transforming students into confident learners
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="glassmorphism p-8 rounded-3xl hover:shadow-xl transition-all duration-300 card-hover tilt-hover">
+                    <div class="w-16 h-16 bg-indigo-900/30 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-user-graduate text-2xl text-indigo-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Expert Faculty</h3>
+                    <p class="text-slate-300">Highly qualified teachers with 10+ years of experience in specialized subjects.</p>
+                </div>
+                
+                <div class="glassmorphism p-8 rounded-3xl hover:shadow-xl transition-all duration-300 card-hover tilt-hover">
+                    <div class="w-16 h-16 bg-indigo-900/30 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-book-open text-2xl text-indigo-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Personalized Learning</h3>
+                    <p class="text-slate-300">Customized study plans tailored to each student's learning style and pace.</p>
+                </div>
+                
+                <div class="glassmorphism p-8 rounded-3xl hover:shadow-xl transition-all duration-300 card-hover tilt-hover">
+                    <div class="w-16 h-16 bg-indigo-900/30 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-chart-line text-2xl text-indigo-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Proven Results</h3>
+                    <p class="text-slate-300">95% of our students achieve distinction in board examinations.</p>
+                </div>
+                
+                <div class="glassmorphism p-8 rounded-3xl hover:shadow-xl transition-all duration-300 card-hover tilt-hover">
+                    <div class="w-16 h-16 bg-indigo-900/30 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-users text-2xl text-indigo-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Supportive Environment</h3>
+                    <p class="text-slate-300">Nurturing atmosphere that encourages curiosity and critical thinking.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Syllabus Section -->
+    <section id="syllabus" class="py-20 bg-slate-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white">
+                    Our <span class="text-gradient">Syllabuses</span>
+                </h2>
+                <p class="text-xl text-slate-300 max-w-3xl mx-auto">
+                    Comprehensive coverage of all major educational boards with specialized teaching methodologies
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="syllabus-card bg-slate-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
+                    <div class="p-6">
+                        <div class="w-16 h-16 bg-indigo-900/30 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-school text-2xl text-indigo-400"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white">CBSE</h3>
+                        <p class="text-slate-300 mb-6">Comprehensive coaching for Central Board of Secondary Education curriculum.</p>
+                        <a href="#classes" class="inline-flex items-center text-indigo-400 font-medium">
+                            View Classes <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="syllabus-card bg-slate-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
+                    <div class="p-6">
+                        <div class="w-16 h-16 bg-indigo-900/30 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-book text-2xl text-indigo-400"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white">ICSE</h3>
+                        <p class="text-slate-300 mb-6">Specialized coaching for Indian Certificate of Secondary Education.</p>
+                        <a href="#classes" class="inline-flex items-center text-indigo-400 font-medium">
+                            View Classes <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="syllabus-card bg-slate-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
+                    <div class="p-6">
+                        <div class="w-16 h-16 bg-indigo-900/30 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-palette text-2xl text-indigo-400"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white">Kerala Syllabus</h3>
+                        <p class="text-slate-300 mb-6">Expert guidance for Kerala State Education Board curriculum.</p>
+                        <a href="#classes" class="inline-flex items-center text-indigo-400 font-medium">
+                            View Classes <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="syllabus-card bg-slate-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
+                    <div class="p-6">
+                        <div class="w-16 h-16 bg-indigo-900/30 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-graduation-cap text-2xl text-indigo-400"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white">ISC (XII Only)</h3>
+                        <p class="text-slate-300 mb-6">Specialized coaching for Indian School Certificate examinations.</p>
+                        <a href="#classes" class="inline-flex items-center text-indigo-400 font-medium">
+                            View Classes <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Classes Section -->
+    <section id="classes" class="py-20 bg-gradient-to-br from-indigo-900/20 to-purple-900/20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white">
+                    Our <span class="text-gradient">Classes</span>
+                </h2>
+                <p class="text-xl text-slate-300 max-w-3xl mx-auto">
+                    Structured learning programs for different standards and syllabuses
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glassmorphism p-8 rounded-3xl hover:shadow-xl transition-all duration-300 card-hover">
+                    <div class="text-center mb-6">
+                        <div class="w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mx-auto">
+                            <span class="text-4xl font-bold text-white">X</span>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-center text-white">Class X</h3>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-indigo-400 mr-3"></i>
+                            <span class="text-slate-300">CBSE & ICSE</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-indigo-400 mr-3"></i>
+                            <span class="text-slate-300">Kerala Syllabus</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-indigo-400 mr-3"></i>
+                            <span class="text-slate-300">Board Exam Preparation</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-indigo-400 mr-3"></i>
+                            <span class="text-slate-300">Regular Mock Tests</span>
+                        </li>
+                    </ul>
+                    <a href="#contact" class="block w-full text-center bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 py-3 rounded-full hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 shadow-lg">
+                        Enroll Now
+                    </a>
+                </div>
+                
+                <div class="glassmorphism p-8 rounded-3xl hover:shadow-xl transition-all duration-300 card-hover">
+                    <div class="text-center mb-6">
+                        <div class="w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mx-auto">
+                            <span class="text-4xl font-bold text-white">XI</span>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-center text-white">Class XI</h3>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-indigo-400 mr-3"></i>
+                            <span class="text-slate-300">CBSE & ICSE</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-indigo-400 mr-3"></i>
+                            <span class="text-slate-300">Kerala Syllabus</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-indigo-400 mr-3"></i>
+                            <span class="text-slate-300">Stream Selection Guidance</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-indigo-400 mr-3"></i>
+                            <span class="text-slate-300">Concept Building</span>
+                        </li>
+                    </ul>
+                    <a href="#contact" class="block w-full text-center bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 py-3 rounded-full hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 shadow-lg">
+                        Enroll Now
+                    </a>
+                </div>
+                
+                <div class="glassmorphism p-8 rounded-3xl hover:shadow-xl transition-all duration-300 card-hover">
+                    <div class="text-center mb-6">
+                        <div class="w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mx-auto">
+                            <span class="text-4xl font-bold text-white">XII</span>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-center text-white">Class XII</h3>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-indigo-400 mr-3"></i>
+                            <span class="text-slate-300">CBSE, ICSE & ISC</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-indigo-400 mr-3"></i>
+                            <span class="text-slate-300">Kerala Syllabus</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-indigo-400 mr-3"></i>
+                            <span class="text-slate-300">Board & Competitive Exams</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-indigo-400 mr-3"></i>
+                            <span class="text-slate-300">Intensive Revision</span>
+                        </li>
+                    </ul>
+                    <a href="#contact" class="block w-full text-center bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 py-3 rounded-full hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 shadow-lg">
+                        Enroll Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Thought of the Day -->
+    <section class="py-20 bg-slate-800 text-white">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div class="mb-6">
+                <i class="fas fa-lightbulb text-4xl text-yellow-400"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-4">Thought of the Day</h3>
+            <p class="text-xl md:text-2xl italic mb-8">
+                "Education is not the learning of facts, but the training of the mind to think."
+            </p>
+            <p class="text-lg text-slate-400">- Albert Einstein</p>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-slate-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white">
+                    Get in <span class="text-gradient">Touch</span>
+                </h2>
+                <p class="text-xl text-slate-300 max-w-3xl mx-auto">
+                    Reach out to us for inquiries, admissions, or to schedule a demo class
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="glassmorphism p-8 rounded-3xl">
+                    <h3 class="text-2xl font-bold mb-6 text-white">Contact Information</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-indigo-900/30 rounded-full flex items-center justify-center flex-shrink-0 mr-4">
+                                <i class="fas fa-map-marker-alt text-indigo-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1 text-white">Address</h4>
+                                <p class="text-slate-300">
+                                    Azhoor, Pathanamthitta, Kerala 689645
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-indigo-900/30 rounded-full flex items-center justify-center flex-shrink-0 mr-4">
+                                <i class="fas fa-phone-alt text-indigo-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1 text-white">Phone</h4>
+                                <p class="text-slate-300">
+                                    09495425037
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-indigo-900/30 rounded-full flex items-center justify-center flex-shrink-0 mr-4">
+                                <i class="fas fa-clock text-indigo-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1 text-white">Working Hours</h4>
+                                <p class="text-slate-300">
+                                    Monday-Saturday: 9:00 AM - 7:00 PM<br>
+                                    Sunday: Closed
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15764.414866172126!2d76.59030929999999!3d9.1705461!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b061b8f6a8b4f0f%3A0x6e6c3e1a8f7a3b0!2sAzhoor%2C%20Kerala%20689645!5e0!3m2!1sen!2sin!4v1717424567890" width="100%" height="250" style="border:0; border-radius: 12px;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+                
+                <div class="glassmorphism p-8 rounded-3xl">
+                    <h3 class="text-2xl font-bold mb-6 text-white">Send us a Message</h3>
+                    
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium mb-2 text-slate-300">Full Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Enter your name">
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium mb-2 text-slate-300">Email Address</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Enter your email">
+                        </div>
+                        
+                        <div>
+                            <label for="phone" class="block text-sm font-medium mb-2 text-slate-300">Phone Number</label>
+                            <input type="tel" id="phone" class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Enter your phone number">
+                        </div>
+                        
+                        <div>
+                            <label for="syllabus" class="block text-sm font-medium mb-2 text-slate-300">Syllabus Interested In</label>
+                            <select id="syllabus" class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                                <option value="">Select a syllabus</option>
+                                <option value="CBSE">CBSE</option>
+                                <option value="ICSE">ICSE</option>
+                                <option value="Kerala">Kerala Syllabus</option>
+                                <option value="ISC">ISC (XII Only)</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium mb-2 text-slate-300">Message</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Enter your message"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 py-4 rounded-lg hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-8 md:mb-0">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                            <i class="fas fa-book text-white"></i>
+                        </div>
+                        <span class="text-2xl font-bold text-indigo-400 font-montserrat">Gyan By Meera</span>
+                    </div>
+                    <p class="text-slate-400 max-w-md">
+                        Transforming education with personalized learning, expert guidance, and a passion for excellence.
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <p class="text-slate-400 mb-4">
+                        Designed and created by <span class="text-indigo-400">_shift_xd_</span>
+                    </p>
+                    <p class="text-slate-500 text-sm">
+                        A contribution from SEVENTH DAY HSS XII BATCH 2025-26
+                    </p>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-800 mt-10 pt-8 text-center">
+                <p class="text-slate-500">
+                    &copy; 2023 Gyan By Meera. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Gyan Bot -->
+    <div id="botContainer" class="fixed bottom-6 right-6 w-96 max-w-full z-50 hidden">
+        <div class="glassmorphism rounded-2xl overflow-hidden shadow-2xl">
+            <div class="bg-gradient-to-r from-indigo-500 to-purple-600 p-4 flex justify-between items-center">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center mr-3">
+                        <i class="fas fa-robot text-indigo-600"></i>
+                    </div>
+                    <h3 class="text-white font-bold">Gyan Bot</h3>
+                </div>
+                <button id="closeBot" class="text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div id="chatMessages" class="bg-slate-800 h-80 overflow-y-auto p-4">
+                <div class="chat-message mb-4">
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 rounded-full bg-indigo-900/30 flex items-center justify-center flex-shrink-0 mr-3">
+                            <i class="fas fa-robot text-indigo-400"></i>
+                        </div>
+                        <div class="bg-slate-700 rounded-2xl rounded-tl-none px-4 py-3">
+                            <p class="text-slate-300">Hello! I'm Gyan Bot, your virtual assistant. How can I help you today? You can ask about:</p>
+                            <ul class="list-disc pl-5 mt-2 text-slate-300">
+                                <li>Course fees and materials</li>
+                                <li>Chemistry concepts and problems</li>
+                                <li>Class schedules</li>
+                                <li>Admission process</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-slate-700 p-4">
+                <div class="flex">
+                    <input id="userInput" type="text" placeholder="Type your message..." class="flex-grow px-4 py-2 rounded-l-lg bg-slate-800 border border-slate-600 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                    <button id="sendMessage" class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-4 rounded-r-lg">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Initialize with dark mode
+        document.body.classList.add('dark-mode');
+        
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                darkModeToggle.innerHTML = '<i class="fas fa-sun text-yellow-400"></i>';
+            } else {
+                darkModeToggle.innerHTML = '<i class="fas fa-moon text-indigo-600"></i>';
+            }
+        });
+        
+        // Mobile Menu Toggle
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileNav = document.getElementById('mobileNav');
+        
+        mobileMenu.addEventListener('click', () => {
+            mobileNav.classList.toggle('hidden');
+        });
+        
+        // Bot Toggle
+        const botToggle = document.getElementById('botToggle');
+        const botContainer = document.getElementById('botContainer');
+        const closeBot = document.getElementById('closeBot');
+        
+        botToggle.addEventListener('click', () => {
+            botContainer.classList.toggle('hidden');
+        });
+        
+        closeBot.addEventListener('click', () => {
+            botContainer.classList.add('hidden');
+        });
+        
+        // Custom Cursor
+        const cursor = document.querySelector('.custom-cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+            setTimeout(() => {
+                cursorFollower.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+            }, 100);
+        });
+        
+        // Add hover effects to cursor
+        const hoverElements = document.querySelectorAll('a, button, .syllabus-card, .card-hover');
+        
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.width = '40px';
+                cursor.style.height = '40px';
+                cursor.style.opacity = '0.5';
+                cursorFollower.style.width = '60px';
+                cursorFollower.style.height = '60px';
+                cursorFollower.style.opacity = '0.2';
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursor.style.width = '20px';
+                cursor.style.height = '20px';
+                cursor.style.opacity = '1';
+                cursorFollower.style.width = '40px';
+                cursorFollower.style.height = '40px';
+                cursorFollower.style.opacity = '0.3';
+            });
+        });
+        
+        // GSAP Scroll Animations
+        gsap.registerPlugin(ScrollTrigger);
+        
+        gsap.utils.toArray('.syllabus-card, .card-hover').forEach(card => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 90%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                y: 50,
+                duration: 0.8
+            });
+        });
+        
+        // Chat Bot Functionality
+        const chatMessages = document.getElementById('chatMessages');
+        const userInput = document.getElementById('userInput');
+        const sendMessage = document.getElementById('sendMessage');
+        
+        function addMessage(message, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('chat-message', 'mb-4');
+            
+            if (isUser) {
+                messageDiv.innerHTML = `
+                    <div class="flex items-start justify-end">
+                        <div class="bg-indigo-600 rounded-2xl rounded-tr-none px-4 py-3 max-w-[80%]">
+                            <p class="text-white">${message}</p>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center flex-shrink-0 ml-3">
+                            <i class="fas fa-user text-white text-sm"></i>
+                        </div>
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 rounded-full bg-indigo-900/30 flex items-center justify-center flex-shrink-0 mr-3">
+                            <i class="fas fa-robot text-indigo-400"></i>
+                        </div>
+                        <div class="bg-slate-700 rounded-2xl rounded-tl-none px-4 py-3 max-w-[80%]">
+                            <p class="text-slate-300">${message}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        function handleUserMessage() {
+            const message = userInput.value.trim();
+            if (message === '') return;
+            
+            addMessage(message, true);
+            userInput.value = '';
+            
+            // Handle specific queries
+            if (message.toLowerCase().includes('fee') || message.toLowerCase().includes('price')) {
+                setTimeout(() => {
+                    addMessage("For class X with extra study material it's ₹14,000 and without it's ₹12,000. Prices for other classes may vary, so please contact Meera Miss at 09495425037 for specific details.");
+                }, 1000);
+            } else if (message.toLowerCase().includes('chemistry') || 
+                       message.toLowerCase().includes('chem') || 
+                       message.toLowerCase().includes('science')) {
+                // For chemistry questions, we'll simulate the API response
+                setTimeout(() => {
+                    addMessage("I'm analyzing your chemistry question...");
+                    
+                    // Simulated chemistry responses
+                    const chemistryResponses = [
+                        "In chemistry, the mole is a unit of measurement that represents 6.022 × 10²³ particles (atoms, molecules, etc.). This number is known as Avogadro's constant.",
+                        "Chemical bonds are the attractive forces that hold atoms together. The main types are ionic, covalent, and metallic bonds.",
+                        "The pH scale measures how acidic or basic a substance is, ranging from 0 (most acidic) to 14 (most basic), with 7 being neutral.",
+                        "Chemical reactions can be classified into synthesis, decomposition, single replacement, double replacement, and combustion reactions.",
+                        "The periodic table organizes elements by increasing atomic number and groups elements with similar properties in the same column."
+                    ];
+                    
+                    const randomResponse = chemistryResponses[Math.floor(Math.random() * chemistryResponses.length)];
+                    
+                    setTimeout(() => {
+                        addMessage(randomResponse);
+                    }, 2000);
+                }, 1000);
+            } else {
+                // Default response
+                setTimeout(() => {
+                    addMessage("Thanks for your message! For more specific inquiries about admissions, schedules, or fees, please contact us directly at 09495425037 or visit our center.");
+                }, 1000);
+            }
+        }
+        
+        sendMessage.addEventListener('click', handleUserMessage);
+        
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleUserMessage();
+            }
+        });
+        
+        // Particles Background
+        document.addEventListener('DOMContentLoaded', function() {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('particles-js').appendChild(renderer.domElement);
+            
+            // Create particles
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 1000;
+            const posArray = new Float32Array(particlesCount * 3);
+            
+            for(let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 10;
+            }
+            
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            
+            // Material
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.02,
+                color: 0x6366f1,
+                transparent: true,
+                opacity: 0.3
+            });
+            
+            // Points system
+            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particlesMesh);
+            
+            camera.position.z = 2;
+            
+            // Animation
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                particlesMesh.rotation.x += 0.001;
+                particlesMesh.rotation.y += 0.001;
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        });
+        
+        // Form submission
+        const contactForm = document.querySelector('form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your message! We will get back to you soon.');
+                this.reset();
+            });
+        }
+    </script>
+</body>
+</html>
